@@ -2,6 +2,27 @@
 
 Sistema web de controle de estoque com gestão de produtos, categorias e histórico de movimentações, com autenticação de usuários. Desenvolvido em Java com Spring Boot, seguindo arquitetura em camadas.
 
+## Telas do sistema
+
+<table>
+<tr>
+<td><img src="./screenshots/login.png" alt="Tela de login" /><br/><sub>Login</sub></td>
+<td><img src="./screenshots/cadastro.png" alt="Tela de cadastro" /><br/><sub>Cadastro de usuário</sub></td>
+</tr>
+<tr>
+<td><img src="./screenshots/produtos-listagem.png" alt="Listagem de produtos" /><br/><sub>Produtos</sub></td>
+<td><img src="./screenshots/produtos-novo.png" alt="Novo produto" /><br/><sub>Novo produto</sub></td>
+</tr>
+<tr>
+<td><img src="./screenshots/produtos-editar.png" alt="Editar produto" /><br/><sub>Editar produto</sub></td>
+<td><img src="./screenshots/categorias-listagem.png" alt="Listagem de categorias" /><br/><sub>Categorias</sub></td>
+</tr>
+<tr>
+<td><img src="./screenshots/categorias-nova.png" alt="Nova categoria" /><br/><sub>Nova categoria</sub></td>
+<td><img src="./screenshots/historico-movimentacoes.png" alt="Histórico de movimentações" /><br/><sub>Histórico de movimentações</sub></td>
+</tr>
+</table>
+
 ## Tecnologias
 
 - **Java 25**
