@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block titulo %}Pacientes{% endblock %}
+{% block conteudo %}
+<div class="page-header">
+  <div>
+    <h1>Pacientes</h1>
+    <p>Cadastro, busca e manutencao dos dados de pacientes.</p>
+  </div>
+</div>
+
+<div class="card">
+  {% if perfil_logado in ['ADMINISTRADOR', 'ATENDENTE'] %}
+  <details class="painel-form" id="painel-novo-paciente">
+    <summary>Cadastrar novo paciente</summary>
+    <form method="post" action="{{ url_for('paciente.criar') }}" class="form-editavel">
+      <div class="form-grid">
+        <div class="campo"><label>Nome completo</label><input type="text" name="nome" required></div>
+        <div class="campo"><label>CPF</label><input type="text" name="cpf" placeholder="000.000.000-00" required></div>
+        <div class="campo"><label>Data de nascimento</label><input type="date" name="dataNascimento" required></div>
+        <div class="campo"><label>Telefone</label><input type="text" name="telefone"></div>
+        <div class="campo"><label>E-mail</label><input type="email" name="email"></div>
+        <div class="campo full"><label>Endereco</label><input type="text" name="endereco"></div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn">Salvar paciente</button>
+      </div>
+    </form>
+  </details>
+  {% else %}
+  <p class="vazio" style="margin:0;">Voce tem acesso apenas para consulta dos pacientes.</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <div class="toolbar">
+    <h2 style="margin:0;">Pacientes cadastrados</h2>
+    <form class="search-form" method="get" action="{{ url_for('paciente.listar') }}">
+      <input type="text" name="busca" placeholder="Buscar por codigo, nome ou CPF..." value="{{ busca }}">
+      <button type="submit" class="btn secundario">Buscar</button>
+    </form>
+  </div>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Codigo</th><th>Nome</th><th>CPF</th><th>Nascimento</th>
+          <th>Telefone</th><th>E-mail</th><th>Acoes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in pacientes %}
+        <tr>
+          <td>#{{ p.idPaciente }}</td>
+          <td>{{ p.nome }}</td>
+          <td>{{ p.cpf }}</td>
+          <td>{{ p.dataNascimento }}</td>
+          <td>{{ p.telefone or '-' }}</td>
+          <td>{{ p.email or '-' }}</td>
+          <td class="acoes">
+            {% if perfil_logado in ['ADMINISTRADOR', 'ATENDENTE'] %}
+            <button type="button" class="btn secundario pequeno"
+              data-editar="#painel-novo-paciente"
+              data-acao="{{ url_for('paciente.editar', id_paciente=p.idPaciente) }}"
+              data-valores='{"nome": "{{ p.nome }}", "cpf": "{{ p.cpf }}", "dataNascimento": "{{ p.dataNascimento }}", "telefone": "{{ p.telefone or "" }}", "email": "{{ p.email or "" }}", "endereco": "{{ p.endereco or "" }}"}'>
+              Editar
+            </button>
+            <form method="post" action="{{ url_for('paciente.excluir', id_paciente=p.idPaciente) }}"
+                  data-confirmar="Excluir o paciente {{ p.nome }}?">
+              <button type="submit" class="btn perigo pequeno">Excluir</button>
+            </form>
+            {% else %}
+            <span class="vazio">-</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="vazio">Nenhum paciente encontrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

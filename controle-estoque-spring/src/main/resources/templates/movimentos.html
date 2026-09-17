@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Movimentações · Controle de Estoque</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="app-body">
+
+<div id="topbar" class="topbar"></div>
+
+<div class="page-wrap">
+    <div class="container container-wide">
+        <div class="page-header">
+            <h2>Histórico de Movimentações</h2>
+            <button type="button" class="btn btn-secondary" id="btn-atualizar">Atualizar</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 18%;">Data/Hora</th>
+                        <th>Produto</th>
+                        <th style="width: 16%;">Tipo</th>
+                        <th style="width: 14%;">Quantidade</th>
+                        <th style="width: 16%;">Usuário</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-logs">
+                    <tr><td colspan="5"><div class="empty-state">Carregando histórico...</div></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/movimentos.js"></script>
+
+</body>
+</html>

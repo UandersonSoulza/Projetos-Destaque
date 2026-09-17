@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Criar conta · Clinica SigaBem</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="login-page">
+  <div style="width:100%; max-width:380px; margin:0 auto;">
+    <a href="{{ url_for('usuario.login') }}" class="voltar-login">&larr; Voltar ao login</a>
+
+    <div class="login-card">
+      <div class="brand-login">Clinica SigaBem</div>
+      <p class="sub">Sistema de Gerenciamento de Consultas Medicas</p>
+
+      <h1 style="font-family:var(--font-display); font-size:1.4rem; margin:6px 0 2px;">Criar conta</h1>
+      <p class="sub" style="margin-bottom:18px;">Preencha os dados para criar seu acesso</p>
+
+      {% with mensagens = get_flashed_messages(with_categories=true) %}
+        {% if mensagens %}
+        <ul class="flashes">
+          {% for categoria, mensagem in mensagens %}
+            <li class="flash {{ categoria }}">{{ mensagem }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      {% endwith %}
+
+      <form method="post" action="{{ url_for('usuario.registrar') }}">
+        <div class="campo">
+          <label for="nome">Nome completo</label>
+          <input type="text" id="nome" name="nome" value="{{ nome or '' }}" required autofocus>
+        </div>
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" value="{{ email or '' }}" required>
+        </div>
+        <div class="campo">
+          <label for="perfil">Perfil de acesso</label>
+          <select id="perfil" name="perfil" required>
+            <option value="" disabled {{ 'selected' if not perfil }}>Selecione...</option>
+            <option value="ATENDENTE" {{ 'selected' if perfil == 'ATENDENTE' }}>Atendente</option>
+            <option value="MEDICO" {{ 'selected' if perfil == 'MEDICO' }}>Medico</option>
+            <option value="PACIENTE" {{ 'selected' if perfil == 'PACIENTE' }}>Paciente</option>
+          </select>
+        </div>
+        <p class="sub" style="margin:-6px 0 14px; font-size:.8rem;">
+          Contas de Administrador sao criadas apenas por um Administrador ja logado, pela tela de Usuarios.
+        </p>
+        <div class="campo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" minlength="6" required>
+        </div>
+        <div class="campo">
+          <label for="confirmar_senha">Confirmar senha</label>
+          <input type="password" id="confirmar_senha" name="confirmar_senha" minlength="6" required>
+        </div>
+        <button type="submit" class="btn">Criar conta</button>
+      </form>
+
+      <div class="login-hint" style="text-align:center;">
+        Ja tem uma conta? <a href="{{ url_for('usuario.login') }}">Fazer login</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,292 @@
+/* =====================================================================
+   Sistema de Gerenciamento de Consultas Medicas
+   Tokens: clinica calma e confiavel, folders/abas como referencia visual
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:            #F4F7F6;
+  --surface:       #FFFFFF;
+  --border:        #DDE6E3;
+  --text:          #000000;
+  --text-muted:    #000000;
+
+  --primary:       #04658b;
+  --primary-dark:  #0a8d9e; 
+  --primary-soft:  #15be86;
+
+  --accent:        #06ecd9;
+  --accent-soft:   #b9b4ad;
+
+  --success:       #297c14;
+  --success-soft:  #d9e2e5;
+  --danger:        #B23A3A;
+  --danger-soft:   #F8E7E7;
+  --info:          #3A6EA5;
+  --info-soft:     #E6EEF6;
+
+  --radius:        10px;
+  --shadow:        0 1px 2px rgba(15,40,35,.06), 0 4px 14px rgba(15,40,35,.06);
+  --font-display:  "Fraunces", Georgia, serif;
+  --font-body:     "Work Sans", "Segoe UI", sans-serif;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+a{ color: var(--primary); text-decoration:none; }
+a:hover{ text-decoration: underline; }
+
+/* ---------- Layout geral ---------- */
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar{
+  width: 240px;
+  flex-shrink:0;
+  background: var(--primary-dark);
+  color: #EAF3F0;
+  display:flex;
+  flex-direction:column;
+  padding: 24px 0;
+}
+
+.brand{
+  font-family: var(--font-display);
+  font-weight:600;
+  font-size: 1.25rem;
+  padding: 0 24px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+  margin-bottom: 12px;
+}
+.brand span{ display:block; font-family: var(--font-body); font-weight:500; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:#9FC4BC; margin-top:4px;}
+
+.nav-tabs{ list-style:none; margin:0; padding:0; }
+.nav-tabs li{ margin: 2px 12px; }
+.nav-tabs a{
+  display:flex; align-items:center; gap:10px;
+  color:#D7E9E4; padding: 10px 12px;
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  font-weight:500;
+  transition: background .15s ease, border-color .15s ease;
+}
+.nav-tabs a:hover{ background: rgba(255,255,255,.08); text-decoration:none; }
+.nav-tabs a.ativo{
+  background: rgba(255,255,255,.12);
+  border-left-color: var(--accent);
+  color:#fff;
+}
+.nav-tabs .tag{
+  font-size:.68rem; font-weight:700; letter-spacing:.04em;
+  width:22px; height:22px; border-radius:6px;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,.14);
+}
+
+.sidebar-footer{
+  margin-top:auto; padding: 16px 24px 0;
+  border-top: 1px solid rgba(255,255,255,.12);
+  font-size:.85rem; color:#B9D6CF;
+}
+.sidebar-footer form{ margin-top:8px; }
+.sidebar-footer button{
+  background:none; border:none; color:#F3D9C0; cursor:pointer; padding:0; font: inherit;
+}
+
+.main{ flex:1; padding: 32px 40px; max-width: 1180px; }
+
+.page-header{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  margin-bottom: 22px; flex-wrap:wrap; gap:12px;
+}
+.page-header h1{
+  font-family: var(--font-display);
+  font-weight:600; font-size:1.9rem; margin:0 0 4px;
+}
+.page-header p{ margin:0; color:var(--text-muted); }
+
+/* ---------- Flash messages ---------- */
+.flashes{ list-style:none; padding:0; margin:0 0 20px; display:flex; flex-direction:column; gap:8px; }
+.flash{
+  padding: 12px 16px; border-radius: var(--radius); font-weight:500; font-size:.92rem;
+  border: 1px solid transparent;
+}
+.flash.sucesso{ background:var(--success-soft); color:var(--success); border-color:#c7e5d5; }
+.flash.erro{ background:var(--danger-soft); color:var(--danger); border-color:#eecccc; }
+
+/* ---------- Cards / paineis ---------- */
+.card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+  margin-bottom: 24px;
+}
+.card h2{ font-family: var(--font-display); font-size:1.2rem; margin: 0 0 16px; font-weight:600; }
+
+/* ---------- Toolbar / busca ---------- */
+.toolbar{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  margin-bottom: 16px; flex-wrap:wrap;
+}
+.search-form{ display:flex; gap:8px; flex-wrap:wrap; }
+.search-form select, .search-form input[type="text"], .search-form input[type="date"]{
+  padding: 9px 12px; border:1px solid var(--border); border-radius:8px; font: inherit; background:#fff;
+}
+.search-form button{ padding:9px 14px; }
+
+/* ---------- Botoes ---------- */
+.btn{
+  display:inline-flex; align-items:center; gap:6px;
+  border:none; border-radius:8px; padding:9px 16px;
+  font: inherit; font-weight:600; font-size:.88rem; cursor:pointer;
+  background: var(--primary); color:#fff;
+  transition: background .15s ease, transform .05s ease;
+}
+.btn:hover{ background: var(--primary-dark); text-decoration:none; }
+.btn:active{ transform: scale(.98); }
+.btn.secundario{ background:#fff; color:var(--primary); border:1px solid var(--primary); }
+.btn.secundario:hover{ background:var(--primary-soft); }
+.btn.perigo{ background:var(--danger); }
+.btn.perigo:hover{ background:#8f2c2c; }
+.btn.pequeno{ padding:5px 10px; font-size:.78rem; }
+
+/* ---------- Formularios ---------- */
+.form-grid{
+  display:grid; grid-template-columns: repeat(2, 1fr); gap: 14px 18px;
+}
+.form-grid.cols-3{ grid-template-columns: repeat(3, 1fr); }
+.campo{ display:flex; flex-direction:column; gap:6px; }
+.campo.full{ grid-column: 1 / -1; }
+.campo label{ font-size:.8rem; font-weight:600; color: var(--text-muted); }
+.campo input, .campo select, .campo textarea{
+  padding: 10px 12px; border:1px solid var(--border); border-radius:8px;
+  font: inherit; background:#fff; color:var(--text);
+}
+.campo textarea{ resize: vertical; min-height:70px; }
+.campo input:focus, .campo select:focus, .campo textarea:focus{
+  outline: 2px solid var(--primary); outline-offset:1px;
+}
+.form-actions{ margin-top: 16px; display:flex; gap:10px; }
+
+details.painel-form summary{
+  cursor:pointer; font-weight:600; color:var(--primary); list-style:none;
+  display:inline-flex; align-items:center; gap:8px;
+}
+details.painel-form summary::-webkit-details-marker{ display:none; }
+details.painel-form summary::before{ content:"+"; font-size:1.1rem; }
+details.painel-form[open] summary::before{ content:"\2212"; }
+details.painel-form[open] summary{ margin-bottom:16px; }
+
+/* ---------- Tabela ---------- */
+.tabela-wrap{ overflow-x:auto; }
+table{ width:100%; border-collapse: collapse; font-size:.92rem; }
+thead th{
+  text-align:left; padding:10px 12px; color: var(--text-muted);
+  font-size:.72rem; text-transform:uppercase; letter-spacing:.04em;
+  border-bottom: 2px solid var(--border);
+}
+tbody td{ padding: 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+tbody tr:hover{ background: var(--primary-soft); }
+.acoes{ display:flex; gap:6px; flex-wrap:wrap; }
+.vazio{ padding: 30px; text-align:center; color: var(--text-muted); }
+
+/* ---------- Selos de status ---------- */
+.selo{
+  display:inline-block; padding: 3px 10px; border-radius: 999px;
+  font-size:.72rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+}
+.selo.agendada, .selo.solicitado{ background: var(--info-soft); color: var(--info); }
+.selo.realizada, .selo.realizado{ background: var(--success-soft); color: var(--success); }
+.selo.cancelada, .selo.cancelado{ background: var(--danger-soft); color: var(--danger); }
+.selo.agendado{ background: var(--accent-soft); color: var(--accent); }
+.selo.ativo{ background: var(--success-soft); color: var(--success); }
+.selo.inativo{ background: #EEE; color: var(--text-muted); }
+
+/* ---------- Pagina de login ---------- */
+.login-page{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(160deg, var(--primary-dark), var(--primary) 70%);
+  padding: 20px;
+}
+.login-card{
+  background:#fff; width:100%; max-width: 380px;
+  border-radius: 14px; padding: 34px 30px; box-shadow: 0 20px 50px rgba(0,0,0,.25);
+}
+.login-card .brand-login{
+  font-family: var(--font-display); font-weight:700; font-size:1.5rem; color:var(--primary-dark);
+  margin-bottom: 4px;
+}
+.login-card p.sub{ color:var(--text-muted); margin:0 0 22px; font-size:.9rem; }
+.login-card .campo{ margin-bottom:14px; }
+.login-card .btn{ width:100%; justify-content:center; padding:11px; }
+.login-hint{
+  margin-top:16px; font-size:.78rem; color:var(--text-muted);
+  background: var(--bg); border:1px dashed var(--border); border-radius:8px; padding:10px 12px;
+}
+
+/* ---------- Painel inicial ---------- */
+.grid-resumo{ display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:16px; margin-bottom:26px; }
+.resumo-item{
+  background:#fff; border:1px solid var(--border); border-radius: var(--radius);
+  padding:18px 20px; box-shadow: var(--shadow);
+  border-left: 4px solid var(--accent);
+}
+.resumo-item h3{ margin:0 0 4px; font-size:.78rem; text-transform:uppercase; letter-spacing:.05em; color:var(--text-muted); }
+.resumo-item a{ font-family: var(--font-display); font-size:1.15rem; font-weight:600; color:var(--text); }
+.resumo-item a:hover{ color:var(--primary); text-decoration:none; }
+
+/* ---------- Log de Movimentacoes ---------- */
+.log-lista{ display:flex; flex-direction:column; gap:12px; }
+.log-item{
+  display:flex; gap:14px; align-items:flex-start;
+  border:1px solid var(--border); border-radius: var(--radius);
+  padding:14px 16px; background:#fff;
+}
+.log-icone{
+  flex-shrink:0; width:38px; height:38px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1rem; background: var(--primary-soft); color:var(--primary);
+}
+.log-icone--login{ background: var(--accent-soft); color: var(--accent); }
+.log-icone--cadastro{ background: var(--primary-soft); color: var(--primary); }
+.log-icone--agendamento{ background: var(--info-soft); color: var(--info); }
+.log-icone--atualizacao{ background: var(--info-soft); color: var(--info); }
+.log-icone--cancelamento, .log-icone--exclusao{ background: var(--danger-soft); color: var(--danger); }
+.log-cabecalho{ display:flex; gap:8px; margin-bottom:4px; }
+.selo-log{
+  display:inline-block; padding:2px 9px; border-radius:999px;
+  font-size:.68rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase;
+  background: var(--primary-soft); color: var(--primary);
+}
+.selo-log.entidade{ background:#EEE; color:var(--text-muted); }
+.log-descricao{ margin:0 0 2px; font-weight:500; }
+.log-meta{ margin:0; font-size:.8rem; color:var(--text-muted); }
+
+/* ---------- Pagina de registro (Criar conta) ---------- */
+.voltar-login{ display:block; max-width:380px; margin:0 auto 12px; color:#EAF3F0; font-weight:500; }
+
+
+@media (max-width: 860px){
+  .app{ flex-direction:column; }
+  .sidebar{ width:100%; flex-direction:row; overflow-x:auto; padding:12px; }
+  .brand{ display:none; }
+  .nav-tabs{ display:flex; }
+  .nav-tabs li{ margin:0 4px; }
+  .sidebar-footer{ display:none; }
+  .main{ padding: 20px; }
+  .form-grid, .form-grid.cols-3{ grid-template-columns: 1fr; }
+}

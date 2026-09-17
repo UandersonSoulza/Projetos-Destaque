@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login · Clinica SigaBem</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="login-page">
+  <div class="login-card">
+    <div class="brand-login">Clinica SigaBem</div>
+    <p class="sub">Sistema de Gerenciamento de Consultas Medicas</p>
+
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+      {% if mensagens %}
+      <ul class="flashes">
+        {% for categoria, mensagem in mensagens %}
+          <li class="flash {{ categoria }}">{{ mensagem }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" action="{{ url_for('usuario.login') }}">
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required autofocus>
+      </div>
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" required>
+      </div>
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+
+    <div class="login-hint">
+      Primeiro acesso? Crie o administrador executando
+      <code>python -m database.seed_admin</code> no terminal
+      (login padrao: admin@clinica.com / admin123).
+    </div>
+
+    <div class="login-hint" style="text-align:center;">
+      Nao tem uma conta? <a href="{{ url_for('usuario.registrar') }}">Criar conta</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro · Controle de Estoque</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container container-auth">
+    <h2>Cadastro</h2>
+
+    <p id="message" class="message" style="display:none;"></p>
+
+    <form id="form-cadastro" autocomplete="off">
+        <div class="form-group">
+            <input type="text" id="login" name="login" placeholder="Usuário" required>
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" name="password" placeholder="Senha" required>
+        </div>
+        <div class="form-actions vertical">
+            <button type="submit" class="btn btn-primary" id="btn-submit">Cadastrar</button>
+            <a class="btn btn-secondary" href="/login">Voltar</a>
+        </div>
+    </form>
+</div>
+
+<script src="/js/common.js"></script>
+<script>
+    function showMessage(text, type) {
+        const el = document.getElementById('message');
+        el.textContent = text;
+        el.style.display = text ? 'block' : 'none';
+    }
+
+    document.getElementById('form-cadastro').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        showMessage('');
+
+        const login = document.getElementById('login').value.trim();
+        const password = document.getElementById('password').value;
+        const btn = document.getElementById('btn-submit');
+
+        btn.disabled = true;
+        try {
+            await apiFetch('/api/usuarios', { method: 'POST', body: { login, password } });
+            showToast('Usuário cadastrado com sucesso! Redirecionando para o login...', 'success');
+            setTimeout(() => { window.location.href = '/login'; }, 1200);
+        } catch (err) {
+            showMessage(err.message || 'Erro ao cadastrar usuário.');
+        } finally {
+            btn.disabled = false;
+        }
+    });
+</script>
+
+</body>
+</html>

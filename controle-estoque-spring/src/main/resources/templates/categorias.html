@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorias · Controle de Estoque</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="app-body">
+
+<div id="topbar" class="topbar"></div>
+
+<div class="page-wrap">
+    <div class="container">
+        <div class="page-header">
+            <h2>Categorias</h2>
+            <button type="button" class="btn btn-primary" id="btn-nova-categoria">+ Nova Categoria</button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">ID</th>
+                        <th>Nome</th>
+                        <th style="width: 20%;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-categorias">
+                    <tr><td colspan="3"><div class="empty-state">Carregando categorias...</div></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de cadastro de categoria -->
+<div class="modal-overlay" id="modal-categoria">
+    <div class="container container-auth">
+        <div class="page-header">
+            <h2>Nova Categoria</h2>
+            <button type="button" class="modal-close" id="btn-fechar-modal">&times;</button>
+        </div>
+
+        <p id="form-categoria-message" class="message" style="display:none;"></p>
+
+        <form id="form-categoria" autocomplete="off">
+            <div class="form-group">
+                <input type="text" id="categoria-name" name="name" placeholder="Nome da categoria" required>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="btn-cancelar-modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="btn-salvar-categoria">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/js/common.js"></script>
+<script src="/js/categorias.js"></script>
+
+</body>
+</html>

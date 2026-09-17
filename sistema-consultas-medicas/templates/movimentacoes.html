@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block titulo %}Log de Movimentacoes{% endblock %}
+{% block conteudo %}
+<div class="page-header">
+  <div>
+    <h1>Log de Movimentacoes</h1>
+    <p>{{ total }} registro{{ 'os' if total != 1 else 'o' }} no total</p>
+  </div>
+</div>
+
+<div class="card">
+  <form method="get" action="{{ url_for('movimentacao.listar') }}" class="toolbar">
+    <div class="search-form">
+      <input type="text" name="busca" placeholder="Buscar no log..." value="{{ busca }}">
+      <select name="entidade">
+        <option value="" {{ 'selected' if not entidade }}>Todas entidades</option>
+        <option value="SISTEMA" {{ 'selected' if entidade == 'SISTEMA' }}>Sistema</option>
+        <option value="USUARIO" {{ 'selected' if entidade == 'USUARIO' }}>Usuario</option>
+        <option value="PACIENTE" {{ 'selected' if entidade == 'PACIENTE' }}>Paciente</option>
+        <option value="MEDICO" {{ 'selected' if entidade == 'MEDICO' }}>Medico</option>
+        <option value="CONSULTA" {{ 'selected' if entidade == 'CONSULTA' }}>Consulta</option>
+        <option value="EXAME" {{ 'selected' if entidade == 'EXAME' }}>Exame</option>
+      </select>
+      <button type="submit" class="btn secundario">Buscar</button>
+    </div>
+    <a href="{{ url_for('movimentacao.listar') }}" class="btn secundario">&#8635; Atualizar</a>
+  </form>
+
+  <div class="log-lista">
+    {% for m in movimentacoes %}
+    <div class="log-item">
+      <div class="log-icone log-icone--{{ m.tipo|lower }}">
+        {%- if m.tipo == 'LOGIN' -%} &#128273;
+        {%- elif m.tipo == 'CADASTRO' -%} &#43;
+        {%- elif m.tipo == 'AGENDAMENTO' -%} &#128197;
+        {%- elif m.tipo == 'ATUALIZACAO' -%} &#9998;
+        {%- elif m.tipo == 'CANCELAMENTO' -%} &#10005;
+        {%- elif m.tipo == 'EXCLUSAO' -%} &#128465;
+        {%- else -%} &#8226;
+        {%- endif -%}
+      </div>
+      <div class="log-corpo">
+        <div class="log-cabecalho">
+          <span class="selo-log">{{ m.tipo }}</span>
+          <span class="selo-log entidade">{{ m.entidade|capitalize }}</span>
+        </div>
+        <p class="log-descricao">{{ m.descricao }}</p>
+        <p class="log-meta">{{ m.autor }} &middot; {{ m.dataHora.strftime('%d/%m/%Y, %H:%M') if m.dataHora.strftime else m.dataHora }}</p>
+      </div>
+    </div>
+    {% else %}
+    <p class="vazio">Nenhuma movimentacao encontrada.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

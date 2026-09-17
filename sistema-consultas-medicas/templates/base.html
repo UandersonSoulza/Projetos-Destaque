@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block titulo %}Clinica{% endblock %} · Consultas Medicas</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Clinica SigaBem<span>Gestao de Consultas</span></div>
+    <ul class="nav-tabs">
+      <li><a href="{{ url_for('index') }}" class="{{ 'ativo' if request.endpoint=='index' else '' }}">
+        <span class="tag">IN</span> Inicio</a></li>
+      <li><a href="{{ url_for('paciente.listar') }}" class="{{ 'ativo' if request.endpoint and request.endpoint.startswith('paciente.') else '' }}">
+        <span class="tag">PA</span> Pacientes</a></li>
+      <li><a href="{{ url_for('medico.listar') }}" class="{{ 'ativo' if request.endpoint and request.endpoint.startswith('medico.') else '' }}">
+        <span class="tag">MD</span> Medicos</a></li>
+      <li><a href="{{ url_for('consulta.listar') }}" class="{{ 'ativo' if request.endpoint and request.endpoint.startswith('consulta.') else '' }}">
+        <span class="tag">CO</span> Consultas</a></li>
+      <li><a href="{{ url_for('exame.listar') }}" class="{{ 'ativo' if request.endpoint and request.endpoint.startswith('exame.') else '' }}">
+        <span class="tag">EX</span> Exames</a></li>
+      {% if perfil_logado == 'ADMINISTRADOR' %}
+      <li><a href="{{ url_for('movimentacao.listar') }}" class="{{ 'ativo' if request.endpoint and request.endpoint.startswith('movimentacao.') else '' }}">
+        <span class="tag">LM</span> Log de Movimentacoes</a></li>
+      <li><a href="{{ url_for('usuario.listar') }}" class="{{ 'ativo' if request.endpoint and request.endpoint.startswith('usuario.listar') else '' }}">
+        <span class="tag">US</span> Usuarios</a></li>
+      {% endif %}
+    </ul>
+    <div class="sidebar-footer">
+      {% if usuario_logado %}
+        Conectado como<br><strong>{{ usuario_logado }}</strong> · {{ perfil_logado }}
+        <div><a href="{{ url_for('usuario.logout') }}">Sair do sistema</a></div>
+      {% endif %}
+    </div>
+  </aside>
+
+  <main class="main">
+    {% with mensagens = get_flashed_messages(with_categories=true) %}
+      {% if mensagens %}
+      <ul class="flashes">
+        {% for categoria, mensagem in mensagens %}
+          <li class="flash {{ categoria }}">{{ mensagem }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% block conteudo %}{% endblock %}
+  </main>
+</div>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block script_extra %}{% endblock %}
+</body>
+</html>

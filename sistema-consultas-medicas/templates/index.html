@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block titulo %}Inicio{% endblock %}
+{% block conteudo %}
+<div class="page-header">
+  <div>
+    <h1>Ola, {{ usuario_nome }}</h1>
+    <p>Painel de acesso rapido aos modulos do sistema.</p>
+  </div>
+</div>
+
+<div class="grid-resumo">
+  <div class="resumo-item">
+    <h3>Modulo</h3>
+    <a href="{{ url_for('paciente.listar') }}">Pacientes</a>
+  </div>
+  <div class="resumo-item">
+    <h3>Modulo</h3>
+    <a href="{{ url_for('medico.listar') }}">Medicos</a>
+  </div>
+  <div class="resumo-item">
+    <h3>Modulo</h3>
+    <a href="{{ url_for('consulta.listar') }}">Consultas</a>
+  </div>
+  <div class="resumo-item">
+    <h3>Modulo</h3>
+    <a href="{{ url_for('exame.listar') }}">Exames</a>
+  </div>
+  {% if perfil_logado == 'ADMINISTRADOR' %}
+  <div class="resumo-item">
+    <h3>Modulo</h3>
+    <a href="{{ url_for('usuario.listar') }}">Usuarios</a>
+  </div>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h2>Sobre o sistema</h2>
+  <p style="color:var(--text-muted); margin:0;">
+    Este painel centraliza o cadastro de pacientes e medicos, o agendamento
+    de consultas e o registro de exames da clinica, substituindo o controle
+    manual anteriormente utilizado.
+  </p>
+</div>
+{% endblock %}

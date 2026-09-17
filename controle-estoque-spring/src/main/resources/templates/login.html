@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login · Controle de Estoque</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container container-auth">
+    <h2>Login</h2>
+
+    <p id="message" class="message" style="display:none;"></p>
+
+    <form id="form-login" autocomplete="off">
+        <div class="form-group">
+            <input type="text" id="login" name="login" placeholder="Usuário" required>
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" name="password" placeholder="Senha" required>
+        </div>
+        <div class="form-actions vertical">
+            <button type="submit" class="btn btn-primary" id="btn-submit">Entrar</button>
+            <a class="btn btn-secondary" href="/register">Cadastrar</a>
+        </div>
+    </form>
+</div>
+
+<script src="/js/common.js"></script>
+<script>
+    function showMessage(text) {
+        const el = document.getElementById('message');
+        el.textContent = text;
+        el.style.display = text ? 'block' : 'none';
+    }
+
+    // Se já existe uma sessão ativa, vai direto para produtos.
+    (async () => {
+        try {
+            await apiFetch('/api/session');
+            window.location.href = '/produtos';
+        } catch (e) {
+            // não autenticado: permanece na tela de login
+        }
+    })();
+
+    document.getElementById('form-login').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        showMessage('');
+
+        const login = document.getElementById('login').value.trim();
+        const password = document.getElementById('password').value;
+        const btn = document.getElementById('btn-submit');
+
+        btn.disabled = true;
+        try {
+            await apiFetch('/api/login', { method: 'POST', body: { login, password } });
+            window.location.href = '/produtos';
+        } catch (err) {
+            showMessage(err.message || 'Login ou senha inválidos.');
+        } finally {
+            btn.disabled = false;
+        }
+    });
+</script>
+
+</body>
+</html>
