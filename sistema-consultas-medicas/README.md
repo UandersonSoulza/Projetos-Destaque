@@ -2,6 +2,31 @@
 
 Aplicação web full stack para gestão de uma clínica: cadastro de pacientes e médicos, agendamento de consultas, registro de exames e controle de usuários com autenticação e perfis de acesso.
 
+## Telas do sistema
+
+<table>
+<tr>
+<td><img src="./screenshots/login.png" alt="Tela de login" /><br/><sub>Login</sub></td>
+<td><img src="./screenshots/painel.png" alt="Painel inicial" /><br/><sub>Painel inicial</sub></td>
+</tr>
+<tr>
+<td><img src="./screenshots/pacientes.png" alt="Tela de Pacientes" /><br/><sub>Pacientes</sub></td>
+<td><img src="./screenshots/medicos.png" alt="Tela de Médicos" /><br/><sub>Médicos</sub></td>
+</tr>
+<tr>
+<td><img src="./screenshots/consultas.png" alt="Tela de Consultas" /><br/><sub>Consultas</sub></td>
+<td><img src="./screenshots/exames.png" alt="Tela de Exames" /><br/><sub>Exames</sub></td>
+</tr>
+<tr>
+<td><img src="./screenshots/usuarios.png" alt="Tela de Usuários" /><br/><sub>Usuários</sub></td>
+<td><img src="./screenshots/log-movimentacoes.png" alt="Log de Movimentações" /><br/><sub>Log de Movimentações</sub></td>
+</tr>
+<tr>
+<td><img src="./screenshots/criar-conta.png" alt="Tela de criação de conta" /><br/><sub>Criação de conta</sub></td>
+<td></td>
+</tr>
+</table>
+
 ## Tecnologias
 
 - **Python 3** + **Flask** (back-end, sem ORM — SQL explícito via `mysql-connector-python`)
